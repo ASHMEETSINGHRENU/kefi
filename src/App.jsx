@@ -23,7 +23,14 @@ import { AdminEnquiries } from './admin/pages/AdminEnquiries';
 import { AdminCustomers } from './admin/pages/AdminCustomers';
 import { AdminMessages } from './admin/pages/AdminMessages';
 
+import { checkHealth } from './services/api';
+
 function App() {
+  React.useEffect(() => {
+    // Silently pre-warm the Render backend on client app launch
+    checkHealth().catch(() => {});
+  }, []);
+
   return (
     <BrowserRouter>
       <AdminAuthProvider>
